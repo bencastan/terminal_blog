@@ -29,10 +29,16 @@ class Post(object):
             'created_date': self.created_date
             }
 
-    @staticmethod
-    def from_mongo(post_id):
+    @classmethod
+    def from_mongo(cls, post_id):
         # Post.from_mongo('123')
-        return Database.find_one(collection='posts', query={'id': post_id})
+        post_data = Database.find_one(collection='posts', query={'id': post_id})
+        return cls(blog_id=post_data['blog_id'],
+                   title=post_data['title'],
+                   content=post_data['content'],
+                   author=post_data['author'],
+                   date=post_data['date'],
+                   id=post_data['id'])
 
     @staticmethod
     def from_blog(blog_id):
