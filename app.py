@@ -6,6 +6,7 @@ from models.post import Post
 Database.initialize()
 menu = Menu()
 
+menu.run_menu()
 
 
 

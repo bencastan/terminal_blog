@@ -1,6 +1,5 @@
 import uuid
 import datetime
-
 from database import Database
 from models.post import Post
 

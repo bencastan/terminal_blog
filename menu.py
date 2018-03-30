@@ -14,7 +14,6 @@ class Menu(object):
             # If not, prompt them to create one
             print("You don't have an account! Lets start one.")
             self._prompt_user_for_account()
-        self.run_menu()
 
     def _user_has_account(self):
         blog = Database.find_one('blogs', {'author': self.user})
@@ -39,6 +38,7 @@ class Menu(object):
         if read_or_write == 'R':
             self._list_blogs()
             self._view_blog()
+            pass
 
         # if read:
             # List blogs in DB
@@ -65,4 +65,4 @@ class Menu(object):
         blog = Blog.from_mongo(blog_to_see)
         posts = blog.get_posts()
         for post in posts:
-            print("Date: {}, title: {}\n\n{}".format(post['created_date'], post['title'], post['comment']))
+            print("Date: {}, title: {}\n\n{}".format(post['created_date'], post['title'], post['content']))
