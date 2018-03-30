@@ -12,10 +12,12 @@ class Menu(object):
             print("Welcome back {}".format(self.user))
         else:
             # If not, prompt them to create one
-            self._promot_user_for_account()
+            print("You don't have an account! Lets start one.")
+            self._prompt_user_for_account()
+        self.run_menu()
 
     def _user_has_account(self):
-        blog = Database.find_one('blogs', {'author': self.user}) is not None
+        blog = Database.find_one('blogs', {'author': self.user})
         if blog is not None:
             self.user_blog = Blog.from_mongo(blog['id'])
             return True
@@ -36,23 +38,20 @@ class Menu(object):
         read_or_write = input("Do you want to read (R) or wrtie (W) blogs? ")
         if read_or_write == 'R':
             self._list_blogs()
-            self._view_blogs()
+            self._view_blog()
 
         # if read:
             # List blogs in DB
             # Allow user to pick one
             # display posts
-            pass
         elif read_or_write == 'W':
-            self._promopt_write_post()
+            self.user_blog.new_post()
         # if write
             # check if user has a blog
             # if they do, prompt to write apost
             # if not, prompt to create a new blog
-        pass
-
-    def _prompt_write_post(self):
-        self.user_blog.new_post()
+        else:
+            print("Thank you for blogging!")
 
     def _list_blogs(self):
         blogs = Database.find(collection='blogs',
@@ -62,7 +61,7 @@ class Menu(object):
             print("ID: {}, Title: {}, Author: {}".format(blog['id'], blog['title'], blog['author']))
 
     def _view_blog(self):
-        blog_to_see = input("Enter the id fot eh blog you would like ot read: ")
+        blog_to_see = input("Enter the id for the blog you would like to read: ")
         blog = Blog.from_mongo(blog_to_see)
         posts = blog.get_posts()
         for post in posts:
