@@ -16,7 +16,7 @@ class Database(object):
 
     @staticmethod
     def find(collection, query):
-        print(Database.DATABASE)
+        #print(Database.DATABASE)
         return Database.DATABASE[collection].find(query)
 
     @staticmethod
